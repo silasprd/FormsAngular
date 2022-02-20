@@ -1,0 +1,73 @@
+<div class="container">
+  <div class="row mt-3 border p1">
+    <div class="col-sm-12">
+      <form [formGroup]="usuarioForm" (ngSubmit) = "enviar()">
+        <h5 style="text-align: center" >Cadastro de usuários</h5>
+
+        <div class="form-row">
+          <div class="form-group col-12">
+            <label for="name">Name</label>
+            <input name="name" id="name" class="form-control" formControlName="name">
+          </div>
+          <div class="form-group col-12">
+            <label for="adress">Username</label>
+            <input name="adress" id="adress" class="form-control" formControlName="adress">
+          </div>
+          <div class="form-group col-12">
+            <label for="adress">Adress</label>
+            <input name="adress" id="adress" class="form-control" formControlName="adress">
+          </div>
+        </div>
+        <div class="form-row" formGroupName="acesso">
+          <div class="form-group col-12 col-sm-6">
+            <label for="email">Email</label>
+            <input type="email" name="email" id="email" class="form-control" formControlName="email">
+          </div>
+          <div class="form-group col-12 col-sm-6">
+            <label for="password">Password</label>
+            <input type="password" name="password" id="password" class="form-control" formControlName="password">
+          </div>
+        </div>
+        <div class="col-12" *ngIf="passwordInvalida">
+          <div class="alert alert-danger" role="alert">
+            <strong>Invalid password!</strong>
+          </div>
+        </div>
+        <div class="col-12" *ngIf="emailInvalido">
+          <div class="alert alert-danger" role="alert">
+            <strong>Invalid email!</strong>
+          </div>
+        </div>
+        <div class="col-12" *ngIf="acessoInvalidos">
+          <div class="alert alert-danger" role="alert">
+            <strong>Invalid data access!</strong>
+          </div>
+        </div>
+
+        <div class="form-row mb-1">
+          <div class="form-group col-12 col-sm-6">
+            <label>Genre</label>
+            <select class="form-control" formControlName="genero">
+              <option [ngValue]="'Male'">Male</option>
+              <option [ngValue]="'Female'">Female</option>
+            </select>
+          </div>
+
+        </div>
+        <button type="submit" class="btn btn-primary mt-3"  [disabled]="!usuarioForm.valid" style="align-items: center">Enviar</button>
+      </form>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-12">
+    <div class="alert" role="alert"
+      [ngClass]="{'alert-success' : usuarioForm.status == 'VALID', 'alert-warning': usuarioForm.status == 'PENDING', 'alert-danger': usuarioForm.status == 'INVALID'}">
+      <strong>{{usuarioForm.status}}</strong>
+    </div>
+  </div>
+  <div class="col-12 border">
+    <h5>Valor atual usuarioForm.value</h5>
+    {{usuarioForm.value | json}}
+  </div>
+</div>
